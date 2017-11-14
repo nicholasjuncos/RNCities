@@ -8,8 +8,7 @@ import {
 } from 'react-native'
 import { ListItem } from 'react-native-elements'
 
-import CitiesStore from '../../store/CitiesStore'
-import { observer } from 'mobx-react'
+import { connect } from 'react-redux'
 
 import uuidV4 from 'uuid/v4'
 
@@ -23,7 +22,6 @@ const styles = StyleSheet.create({
     }
 })
 
-@observer
 class Cities extends React.Component {
     static navigationOptions = {
         headerTitle: (
@@ -44,7 +42,7 @@ class Cities extends React.Component {
         )
     }
     render() {
-        let cities = Object.values(CitiesStore.cities)
+        let cities = Object.values(this.props.cities)
         return (
             <View style={styles.container}>
                 <FlatList
@@ -57,4 +55,13 @@ class Cities extends React.Component {
     }
 }
 
-export default Cities
+// connect()() has 2 arguments
+// 1 - function that gives access to the state
+// 2 function that
+export default connect(
+    (state) => {
+        return{
+            cities: state.citiesReducer.cities
+        }
+    }
+)(Cities)
