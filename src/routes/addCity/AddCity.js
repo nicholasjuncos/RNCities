@@ -9,6 +9,7 @@ import {
 import { Button } from 'react-native-elements'
 import { colors } from '@theme'
 import { CitiesLogo} from '@assets/images'
+import { addCity } from '../../actions/citiesActions'
 
 const initialState = {
     city: {

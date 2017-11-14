@@ -1,4 +1,5 @@
 import uuidv4 from 'uuid/v4'
+import { ADD_CITY } from './actions/citiesActions'
 
 const initialState = {
     cities: {
@@ -15,6 +16,19 @@ const initialState = {
     }
 }
 
-export default function citiesReducers(state = initialState) {
-    return state
+// { type: 'SOMETYPE' }
+
+export default function citiesReducers(state = initialState, action) {
+    switch(action.type) {
+        case ADD_CITY:
+            const id = uuidv4()
+            return {
+                cities: {
+                    ...state.cities,
+                    [id]: action.city
+                }
+            }
+        default:
+            return state
+    }
 }
