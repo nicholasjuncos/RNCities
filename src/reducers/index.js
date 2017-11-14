@@ -1,6 +1,6 @@
-import { comebineReducers } from 'redux'
+import { combineReducers } from 'redux'
 
-import citiesReducer from './citiesReducer'
+import citiesReducer from './citiesReducers'
 
 export default combineReducers({
     citiesReducer

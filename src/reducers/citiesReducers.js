@@ -1,4 +1,4 @@
-import uuidv4 from 'vvuid/v4'
+import uuidv4 from 'uuid/v4'
 
 const initialState = {
     cities: {
@@ -15,6 +15,6 @@ const initialState = {
     }
 }
 
-export default function citiesReducer(state = initialState) {
+export default function citiesReducers(state = initialState) {
     return state
 }
