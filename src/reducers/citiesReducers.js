@@ -1,5 +1,5 @@
 import uuidv4 from 'uuid/v4'
-import { ADD_CITY } from './actions/citiesActions'
+import { ADD_CITY } from '../actions/citiesActions'
 
 const initialState = {
     cities: {
