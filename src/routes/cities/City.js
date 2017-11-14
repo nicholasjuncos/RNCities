@@ -42,7 +42,7 @@ class City extends React.Component {
     addLocation = () => {
         const { city } = this.props.navigation.state.params
         const { location } = this.state
-        this.props.dispatchAddLocation()
+        this.props.dispatchAddLocation(city, location)
         this.setState({location: {name: '', address: ''} })
         this.toggleModal()
     }
@@ -90,7 +90,6 @@ class City extends React.Component {
                         />
                     </View>
                 </Modal>
-                <Text>Hello from City</Text>
             </View>
         )
     }
