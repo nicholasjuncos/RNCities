@@ -1,22 +1,9 @@
 import uuidv4 from 'uuid/v4'
-import { ADD_CITY } from '../actions/citiesActions'
+import { ADD_CITY, ADD_LOCATION } from '../actions/citiesActions'
 
 const initialState = {
-    cities: {
-        'London': {
-            name: 'London',
-            country: 'UK',
-            id: uuidv4()
-        },
-        'Seattle': {
-            name: 'Seattle',
-            country: 'USA',
-            id: uuidv4()
-        }
-    }
+    cities: {}
 }
-
-// { type: 'SOMETYPE' }
 
 export default function citiesReducers(state = initialState, action) {
     switch(action.type) {
@@ -25,7 +12,23 @@ export default function citiesReducers(state = initialState, action) {
             return {
                 cities: {
                     ...state.cities,
-                    [id]: action.city
+                    [id]: {
+                        ...action.city,
+                        locations: []
+                    }
+                }
+            }
+        case ADD_LOCATION:
+            return {
+                cities: {
+                    ...state.cities,
+                    [city.id]: {
+                        ...state.cities[action.id],
+                        locations: [
+                            ...state.cities[action.id].locations,
+                            location
+                        ]
+                    }
                 }
             }
         default:
