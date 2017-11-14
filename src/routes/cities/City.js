@@ -50,6 +50,14 @@ class City extends React.Component {
         console.log('city: ', this.props.navigation.state.params.city)
         return (
             <View style={styles.container}>
+                {
+                    this.props.city.locations.map((location, index) => (
+                        <View style={styles.card} key={index}>
+                            <Text Style={styles.info}>{location.name}</Text>
+                            <Text Style={styles.info}>{location.address}</Text>
+                        </View>
+                    ))
+                }
                 <Icon
                     underlayColor={colors.primary}
                     raised
@@ -89,6 +97,7 @@ class City extends React.Component {
                             onPress={this.toggleModal}
                         />
                     </View>
+
                 </Modal>
             </View>
         )
@@ -96,6 +105,15 @@ class City extends React.Component {
 }
 
 const styles = StyleSheet.create({
+    card: {
+        backgroundColor: 'white',
+        margin: 10,
+        padding: 15
+    },
+    info: {
+        marginTop: 10,
+        fontWeight: '500'
+    },
     title: {
         marginTop: 80,
         marginVertical: 15,
@@ -123,8 +141,15 @@ const styles = StyleSheet.create({
     }
 })
 
+const mapStateToProps = (state, props) => {
+    const id = props.navigation.state.params.city.id
+    return {
+        city: state.citiesReducer.cities[id]
+    }
+}
+
 const mapDispatchToProps = {
     dispatchAddLocation: (city, location) => addLocation(city, location)
 }
 
-export default connect(null, mapDispatchToProps)(City)
+export default connect(mapStateToProps, mapDispatchToProps)(City)
