@@ -14,7 +14,8 @@ export default function citiesReducers(state = initialState, action) {
                     ...state.cities,
                     [id]: {
                         ...action.city,
-                        locations: []
+                        locations: [],
+                        id: id
                     }
                 }
             }
@@ -22,11 +23,11 @@ export default function citiesReducers(state = initialState, action) {
             return {
                 cities: {
                     ...state.cities,
-                    [city.id]: {
-                        ...state.cities[action.id],
+                    [action.city.id]: {
+                        ...state.cities[action.city.id],
                         locations: [
-                            ...state.cities[action.id].locations,
-                            location
+                            ...state.cities[action.city.id].locations,
+                            action.location
                         ]
                     }
                 }

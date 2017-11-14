@@ -9,10 +9,12 @@ import {
 
 import { Icon, Button } from 'react-native-elements'
 import { colors } from '@theme'
+import { addLocation } from '../../actions/citiesActions'
+import { connect } from 'react-redux'
 
 class City extends React.Component {
     static navigationOptions(props) {
-        const { name } = props.navigation.state.params
+        const { name } = props.navigation.state.params.city
         return {
             title: name
         }
@@ -37,7 +39,15 @@ class City extends React.Component {
             }
         }))
     }
+    addLocation = () => {
+        const { city } = this.props.navigation.state.params
+        const { location } = this.state
+        this.props.dispatchAddLocation()
+        this.setState({location: {name: '', address: ''} })
+        this.toggleModal()
+    }
     render() {
+        console.log('city: ', this.props.navigation.state.params.city)
         return (
             <View style={styles.container}>
                 <Icon
@@ -56,7 +66,7 @@ class City extends React.Component {
                     <View style={styles.modal}>
                         <Text style={styles.title}>Add Location</Text>
                         <TextInput
-                            onChangeText={value => this.updateInput('address', value)}
+                            onChangeText={value => this.updateInput('name', value)}
                             placeholder='Location Name'
                             style={styles.input}
                         />
@@ -66,6 +76,7 @@ class City extends React.Component {
                             style={styles.input}
                         />
                         <Button
+                            onPress={this.addLocation}
                             title={'Submit'}
                         />
                         <Icon
@@ -113,4 +124,8 @@ const styles = StyleSheet.create({
     }
 })
 
-export default City
+const mapDispatchToProps = {
+    dispatchAddLocation: (city, location) => addLocation(city, location)
+}
+
+export default connect(null, mapDispatchToProps)(City)
